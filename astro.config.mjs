@@ -23,6 +23,7 @@ async function getHighlighter() {
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
   site: config.site.base_url ? config.site.base_url : "http://examplesite.com",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
@@ -31,6 +32,7 @@ export default defineConfig({
   experimental: {
     session: true,
   },
+  trailingSlash: "ignore",
   adapter: netlify(),
   integrations: [
     react(),

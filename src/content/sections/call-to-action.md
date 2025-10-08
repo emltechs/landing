@@ -6,5 +6,5 @@ description: "Export AI analyzes product labels, ingredients, and documentation 
 button:
   enable: true
   label: "Book a Demo"
-  link: "/contact/"
+  link: "/demo/"
 ---

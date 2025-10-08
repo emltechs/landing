@@ -24,9 +24,9 @@ plans:
       enable: false
       label: "Recommended"
     button:
-      enable: true
+      enable: false
       label: "Select Basic Plan"
-      link: "/contact/"
+      link: "/demo/"
   - title: "Premium Plan"
     description: "Perfect for medium to large businesses requiring security features and priority support."
     price_prefix: "$"

@@ -4,17 +4,31 @@ import config from "@/config/config.json";
 import { markdownify } from "@/lib/utils/textConverter";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
-import { actions } from "astro:actions";
 
-const { contact_form_action } = config.params;
+export const prerender = false;
+
 const { hero } = (
   (await getEntry("contact", "-index")) as CollectionEntry<"contact">
 ).data;
 
-// Get action result for form feedback
-const result = Astro.getActionResult(actions.demo);
-console.log("=== CONTACT HERO RESULT ===");
-console.log("Action result:", result);
+// Get action result for form error handling
+import { actions, isInputError } from "astro:actions";
+const actionResult = Astro.getActionResult(actions.demo);
+const inputErrors = isInputError(actionResult?.error)
+  ? actionResult.error.fields
+  : {};
+type DemoResult = {
+  success: boolean;
+  message: string;
+  data: {
+    name: string;
+    company_name: string;
+    email: string;
+    country: string;
+    message?: string;
+  };
+};
+const demoResult = actionResult?.data as DemoResult | undefined;
 ---
 
 <section class="section">
@@ -86,130 +100,203 @@ console.log("Action result:", result);
           loading="eager"
         />
         <div class="rounded-2xl bg-light p-5 md:p-10">
-          {/* Form feedback messages */}
+          {/* Success State */}
           {
-            result?.error && (
-              <div class="mb-4 rounded-lg bg-red-50 border border-red-200 p-4">
-                <div class="flex">
-                  <div class="flex-shrink-0">
-                    <svg
-                      class="h-5 w-5 text-red-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div class="ml-3">
-                    <h3 class="text-sm font-medium text-red-800">Error</h3>
-                    <div class="mt-2 text-sm text-red-700">
-                      <p>{result.error.message}</p>
-                    </div>
-                  </div>
+            demoResult?.success && (
+              <div class="text-center" data-success>
+                <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 mb-6">
+                  <svg
+                    class="h-8 w-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                  Demo Request Submitted!
+                </h3>
+                <p class="text-gray-600 mb-6 success-message">
+                  {demoResult?.message}
+                </p>
+                <div class="text-sm text-gray-500">
+                  <p>
+                    We'll contact you within 24 hours to schedule your
+                    personalized demo.
+                  </p>
                 </div>
               </div>
             )
           }
 
+          {/* Error State */}
           {
-            result?.data && (
-              <div class="mb-4 rounded-lg bg-green-50 border border-green-200 p-4">
-                <div class="flex">
-                  <div class="flex-shrink-0">
-                    <svg
-                      class="h-5 w-5 text-green-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div class="ml-3">
-                    <h3 class="text-sm font-medium text-green-800">Success!</h3>
-                    <div class="mt-2 text-sm text-green-700">
-                      <p>{result.data.message}</p>
-                    </div>
-                  </div>
+            actionResult?.error && (
+              <div class="text-center" data-error>
+                <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100 mb-6">
+                  <svg
+                    class="h-8 w-8 text-red-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 </div>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                  Submission Failed
+                </h3>
+                <p class="text-gray-600 mb-6 error-message">
+                  {isInputError(actionResult?.error)
+                    ? "Please correct the highlighted fields."
+                    : actionResult?.error?.message}
+                </p>
+                <button
+                  class="btn btn-regular"
+                  type="button"
+                  onclick="history.back()"
+                >
+                  Try Again
+                </button>
               </div>
             )
           }
 
-          <form
-            class="row g-4"
-            action={actions.demo}
-            method="POST"
-            enctype="multipart/form-data"
-          >
-            <div class="col-12">
-              <label for="name" class="form-label">
-                Full Name <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="name"
-                name="name"
-                class="form-input"
-                placeholder="Enter your full name"
-                required
-                type="text"
-              />
-            </div>
-
-            <div class="col-12">
-              <label for="email" class="form-label">
-                Business Email <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                class="form-input"
-                placeholder="your.email@company.com"
-                required
-                type="email"
-              />
-            </div>
-            <div class="col-12">
-              <label for="company-name" class="form-label">
-                Company Name <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="company-name"
-                name="company_name"
-                class="form-input"
-                placeholder="Your company name"
-                required
-                type="text"
-              />
-            </div>
-            <div class="col-12">
-              <label for="message" class="form-label">
-                Tell us about your export compliance needs
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                class="form-input"
-                placeholder="Describe your current export compliance challenges or what you'd like to see in the demo"
-                rows="3"
+          {/* Default Form State */}
+          {
+            !demoResult?.success && (
+              <form
+                class="row g-4"
+                method="POST"
+                action={actions.demo}
+                data-form
               >
-              </textarea>
-            </div>
-            <div class="col-12">
-              <button type="submit" class="btn btn-regular">
-                Request Demo
-              </button>
-            </div>
-          </form>
+                <div class="col-12">
+                  <label for="name" class="form-label">
+                    Full Name <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    class="form-input"
+                    placeholder="Enter your full name"
+                    required
+                    type="text"
+                    value={demoResult?.data?.name || ""}
+                    aria-invalid={inputErrors?.name ? "true" : "false"}
+                  />
+                  {inputErrors?.name && (
+                    <p class="text-red-500 text-sm mt-1">
+                      {inputErrors.name.join(", ")}
+                    </p>
+                  )}
+                </div>
+
+                <div class="col-12">
+                  <label for="email" class="form-label">
+                    Business Email <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    placeholder="your.email@company.com"
+                    required
+                    type="email"
+                    value={demoResult?.data?.email || ""}
+                    aria-invalid={inputErrors?.email ? "true" : "false"}
+                  />
+                  {inputErrors?.email && (
+                    <p class="text-red-500 text-sm mt-1">
+                      {inputErrors.email.join(", ")}
+                    </p>
+                  )}
+                </div>
+                <div class="col-12">
+                  <label for="company-name" class="form-label">
+                    Company Name <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="company-name"
+                    name="company_name"
+                    class="form-input"
+                    placeholder="Your company name"
+                    required
+                    type="text"
+                    value={demoResult?.data?.company_name || ""}
+                    aria-invalid={inputErrors?.company_name ? "true" : "false"}
+                  />
+                  {inputErrors?.company_name && (
+                    <p class="text-red-500 text-sm mt-1">
+                      {inputErrors.company_name.join(", ")}
+                    </p>
+                  )}
+                </div>
+                <div class="col-12">
+                  <label for="country" class="form-label">
+                    Country <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="country"
+                    name="country"
+                    class="form-input"
+                    placeholder="Enter your country"
+                    required
+                    type="text"
+                    value={demoResult?.data?.country || ""}
+                    aria-invalid={inputErrors?.country ? "true" : "false"}
+                  />
+                  {inputErrors?.country && (
+                    <p class="text-red-500 text-sm mt-1">
+                      {inputErrors.country.join(", ")}
+                    </p>
+                  )}
+                </div>
+                <div class="col-12">
+                  <label for="message" class="form-label">
+                    Tell us about your export compliance needs
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    class="form-input"
+                    placeholder="Describe your current export compliance challenges or what you'd like to see in the demo"
+                    rows="3"
+                    aria-invalid={inputErrors?.message ? "true" : "false"}
+                  >
+                    {demoResult?.data?.message || ""}
+                  </textarea>
+                  {inputErrors?.message && (
+                    <p class="text-red-500 text-sm mt-1">
+                      {inputErrors.message.join(", ")}
+                    </p>
+                  )}
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-regular">
+                    Request Demo
+                  </button>
+                </div>
+              </form>
+            )
+          }
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  // No client-side form state reset required; server action result renders UI.
+</script>

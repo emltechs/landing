@@ -18,8 +18,8 @@ images:
 buttons:
   - enable: true
     label: "Book a Demo"
-    link: "/contact/"
+    link: "/demo/"
   - enable: false
     label: "View Features"
-    link: "/contact/"
+    link: "/demo/"
 ---

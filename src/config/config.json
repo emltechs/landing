@@ -33,7 +33,7 @@
   "navigation_button": {
     "enable": true,
     "label": "Request Demo",
-    "link": "/contact/"
+    "link": "/demo/"
   },
 
   "metadata": {

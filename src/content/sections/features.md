@@ -16,7 +16,7 @@ list:
     button:
       enable: true
       label: "Book a Demo"
-      link: "/contact/"
+      link: "/demo/"
 
   - title: "Detailed Compliance Reports"
     image: "/images/features/essential-feature-2.png"

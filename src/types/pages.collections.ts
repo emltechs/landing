@@ -87,7 +87,7 @@ export const contact = defineCollection({
           icon: z.string(),
           title: z.string(),
           description: z.string(),
-        }),
+        })
       ),
     }),
   }),
