@@ -1,14 +1,14 @@
 {
   "site": {
     "title": "Export AI",
-    "base_url": "https://exportai.com",
+    "base_url": "https://export-ai.netlify.app",
     "base_path": "/",
     "trailing_slash": true,
     "favicon": "/images/favicon.png",
-    "logo": "/images/logo.png",
-    "logo_width": "146.67",
-    "logo_height": "40",
-    "logo_text": "Export AI"
+    "logo": "/images/exportai.png",
+    "logo_width": "206",
+    "logo_height": "48",
+    "logo_text": "Export AI Logo"
   },
 
   "settings": {
@@ -18,27 +18,27 @@
   },
 
   "params": {
-    "contact_form_action": "#",
-    "footer_description": "Securing Your Digital World: Your Trusted Partner in Data Protection with Cutting Edge Solutions for Data Security.",
-    "copyright": "Copyright © {year} Fortify. All Rights Reserved"
+    "contact_form_action": "",
+    "footer_description": "AI-Powered Compliance Platform for Product Export & Trade.",
+    "copyright": "Copyright © {year} Export AI. All Rights Reserved"
   },
 
   "subscription": {
-    "enable": true,
+    "enable": false,
     "action": "#",
     "title": "Subscribe to Our Newsletter!",
-    "description": "Stay Informed with Our Latest Security Insights - Subscribe to Our Newsletter!"
+    "description": "Stay Informed with Latest Export Compliance Updates - Subscribe to Our Newsletter!"
   },
 
   "navigation_button": {
     "enable": true,
-    "label": "Get Started",
-    "link": "https://themefisher.com/products/fortify-astro"
+    "label": "Request Demo",
+    "link": "/contact/"
   },
 
   "metadata": {
-    "meta_author": "Themefisher",
+    "meta_author": "Export AI",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Security Saas & Startup Template"
+    "meta_description": "AI-Powered Compliance Platform for Export & Trade. Automated label compliance checking, ingredient analysis, and regulatory validation for cosmetics, food, and homecare products."
   }
 }

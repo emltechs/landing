@@ -1,18 +1,18 @@
 ---
-title: "Contact"
-meta_title: ""
-description: "this is meta description"
+title: "Request Demo"
+meta_title: "Request a Demo - Export Compliance Platform"
+description: "Request a personalized demo of our export compliance platform to see how we can help streamline your business processes."
 draft: false
 
 hero:
-  subtitle: Contact Us
-  title: Get in Touch. <br> Contact Information and Support.
-  description: Your Trusted Partner in Data Protection with Cutting-Edge <br> Solutions for Comprehensive Data Security.
+  subtitle: "Request Demo"
+  title: "See Our Platform <br /> in Action"
+  description: "Get a personalized demonstration of our export compliance platform and discover how we can streamline your business processes."
   list:
     - icon: "/images/icons/svg/24.svg"
-      title: 24/7 Customer Support
-      description: Our dedicated support team is available 24/7 to assist you with any issues or questions you may have.
+      title: "Personalized Demo"
+      description: "Get a tailored demonstration that shows exactly how our platform can meet your specific business needs."
     - icon: "/images/icons/svg/like.svg"
-      title: Self-help resources
-      description: Access our extensive knowledge base for self-help resources, including step-by-step guides.
+      title: "Expert Consultation"
+      description: "Speak with our export compliance experts who can answer your questions and provide valuable insights."
 ---

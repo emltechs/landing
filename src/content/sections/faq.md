@@ -1,22 +1,19 @@
 ---
-# Our Customers
 subtitle: FAQ
 title: Frequently Asked Questions
-description: Your Trusted Partner in Data Protection with Cutting-Edge Solutions for <br> Comprehensive Data Security.
+description: Get answers to common questions about our AI-powered export compliance platform and <br> how it can streamline your business processes.
 
 # FAQ List
 list:
-  - title: What is two-factor authentication (2FA) and how does it enhance security?
-    description: If you receive a suspicious email, do not click on any links or download attachments. Verify the sender's email address and look for signs of phishing, such as misspellings or unusual requests. If in doubt, contact the sender directly using a known, trusted method of communication. Report the email to your IT department or email provider.
+  - title: What can I expect from the demo?
+    description: Our personalized demo showcases how our AI platform can analyze your product labels and documentation in under 5 minutes. You'll see real-time compliance checking against 26,000+ ingredients, automated label validation, and detailed reports with actionable fixes. We'll demonstrate the platform using your specific products and compliance challenges.
     active: true
-  - title: What should I do if I receive a suspicious email?
-    description: Receiving a suspicious email? Don't click on links or download attachments. Verify the sender's email address and look for phishing signs, like misspellings or strange requests. If uncertain, reach out to the sender directly via a trusted method. Report it to your IT department or email provider.
-  - title: What is encryption and how does it protect my data?
-    description: When you get a suspicious email, don't click any links or download attachments. Verify the sender's email address and look for phishing signs, such as misspellings or strange requests. If uncertain, contact the sender using a reliable method. Report the email to your IT department or email provider.
-  - title: How can I ensure my mobile devices are secure?
-    description: If you receive a suspicious email, do not click on any links or download attachments. Verify the sender's email address and look for signs of phishing, such as misspellings or unusual requests. If in doubt, contact the sender directly using a known, trusted method of communication. Report the email to your IT department or email provider.
-  - title: What are the common signs of a data breach?
-    description: Received a suspicious email? Refrain from clicking any links or downloading attachments. Verify the sender's email and check for phishing signs, like misspellings or odd requests. If unsure, contact the sender via a trusted method. Report the email to your IT department or email provider.
-  - title: How can I create a strong password?
-    description: If a suspicious email arrives, do not click on links or download attachments. Verify the sender's email address and look for phishing signs, such as typos or unusual requests. If unsure, contact the sender directly using a trusted method. Report the email to your IT department or email provider.
+  - title: How accurate is the compliance checking?
+    description: Our platform achieves 99.9% accuracy by using official regulatory databases and tracking 1,700+ prohibited substances. The AI cross-references your product information against current EU regulations for cosmetics, homecare, and food products, ensuring reliable compliance assessment.
+  - title: What file formats can I upload for analysis?
+    description: You can upload label images (JPG, PNG) or PDF documents. Our advanced OCR technology automatically extracts key information including ingredient lists, manufacturer details, net content, and product specifications. The platform supports multi-page documents and technical sheets.
+  - title: How long does a compliance check take?
+    description: Most compliance checks are completed in under 5 minutes. You'll see real-time progress tracking as the system performs OCR extraction, ingredient identification, regulatory database lookup, and compliance assessment. The platform is 10x faster than manual compliance processes.
+  - title: What industries does Export AI support?
+    description: Currently, we support EU regulations for cosmetics, homecare, and food products. We're actively expanding to new markets and industries, with the platform built for global trade compliance and adaptable to different regulatory frameworks.
 ---

@@ -1,7 +1,7 @@
 ---
-subtitle: "Key Features"
-title: "AI-Powered Compliance Features"
-description: Comprehensive Export & Trade Compliance Platform with <br> Advanced AI Technology for Global Markets.
+subtitle: "Intelligent Compliance Engine"
+title: "Every Regulation, Every Detail, Automatically Verified"
+description: From ingredient validation to visual annotation, our AI software examines your products through multiple compliance lenses simultaneously.
 list:
   - title: "Automated Label Compliance Checking"
     description: "Instant validation against regulatory requirements with severity levels and actionable fix suggestions. Checks mandatory labeling requirements and identifies non-compliant elements."

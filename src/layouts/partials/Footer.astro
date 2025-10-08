@@ -33,47 +33,6 @@ function replaceYear(text: string) {
         }
         <Social source={social?.main} className="social-icons" />
       </div>
-      <div class="sm:col-6 md:col-6 lg:col-4">
-        <div
-          class="flex flex-wrap gap-y-6 sm:flex-nowrap md:justify-end lg:justify-around">
-          <div class="w-[160px]">
-            <h3 class="mb-4 pt-2 text-base text-text-dark md:mb-9">
-              Resources
-            </h3>
-            <ul class="flex flex-col gap-3">
-              {
-                footer_menu.map((item) => (
-                  <li>
-                    <a
-                      class="font-medium transition hover:text-tertiary"
-                      href={item.url}>
-                      {item.name}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div class="w-[160px]">
-            <h3 class="mb-4 pt-2 text-base text-text-dark md:mb-9">
-              Quick Info
-            </h3>
-            <ul class="flex flex-col gap-3">
-              {
-                footer_quick_links.map((item) => (
-                  <li>
-                    <a
-                      class="font-medium transition hover:text-tertiary"
-                      href={item.url}>
-                      {item.name}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
-      </div>
       {
         (
           <div class="sm:col-7 md:col-6 lg:col-4">
@@ -96,7 +55,8 @@ function replaceYear(text: string) {
                   <form
                     action={config.subscription.action}
                     method="post"
-                    class="flex justify-between rounded-full bg-white px-3 py-2">
+                    class="flex justify-between rounded-full bg-white px-3 py-2"
+                  >
                     <input
                       type="email"
                       placeholder="Enter your email"
@@ -105,17 +65,30 @@ function replaceYear(text: string) {
                     />
                     <button
                       class="rounded-full bg-secondary px-4 py-1 font-medium transition hover:opacity-80 cursor-pointer"
-                      type="submit">
+                      type="submit"
+                    >
                       Subscribe
                     </button>
                   </form>
                 </>
               )}
             {config.params.copyright && (
-              <div
-                class="mt-5 lg:mt-14"
-                set:html={markdownify(replaceYear(config.params.copyright))}
-              />
+              <div class="flex flex-col gap-4 items-end">
+                <div
+                  class=""
+                  set:html={markdownify(replaceYear(config.params.copyright))}
+                />
+                <div class="flex justify-center items-center gap-1">
+                  <span class="font-medium text-slate-400"> Software by</span>
+                  <img
+                    src="/images/emltech.png"
+                    alt="eml tech logo"
+                    height="32"
+                    class="h-8"
+                    width="auto"
+                  />
+                </div>
+              </div>
             )}
           </div>
         )

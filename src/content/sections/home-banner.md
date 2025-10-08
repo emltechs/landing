@@ -1,7 +1,7 @@
 ---
 # Banner
-title: "Export AI: From Product to Market in Minutes"
-description: "AI-Powered Compliance Platform for Export & Trade. Automated label compliance checking, ingredient analysis, and regulatory validation for cosmetics, food, and homecare products. 10x faster than manual compliance with 99.9% accuracy."
+title: "Export with Confidence: From Product to Market in Minutes"
+description: "AI-Powered Compliance Platform for Export & Trade. Automated label compliance checking, ingredient analysis, and regulatory validation for cosmetics, food, and homecare products."
 bg_image: "/images/banner-bg.png"
 images:
   - src: "/images/banner-main.png" # Main Image
@@ -17,9 +17,9 @@ images:
     alt: "Regulatory Validation"
 buttons:
   - enable: true
-    label: "Start Free Analysis"
+    label: "Book a Demo"
     link: "/contact/"
-  - enable: true
+  - enable: false
     label: "View Features"
-    link: "/features/"
+    link: "/contact/"
 ---

@@ -15,7 +15,7 @@ list:
         description: "Compares label vs technical documentation to identify component discrepancies and missing information."
     button:
       enable: true
-      label: "Start Free Analysis"
+      label: "Book a Demo"
       link: "/contact/"
 
   - title: "Detailed Compliance Reports"
