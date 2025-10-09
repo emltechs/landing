@@ -21,7 +21,7 @@
 
 /* section style */
 .section {
-  @apply py-10 md:py-14;
+  @apply py-12 md:py-24;
 }
 
 /* Container */

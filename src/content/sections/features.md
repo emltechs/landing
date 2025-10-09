@@ -4,7 +4,7 @@ title: "Discover the Features That Make Export AI Stand Out."
 description: "AI-Powered Compliance Platform for Export & Trade with <br> Advanced Technology for Global Market Success."
 list:
   - title: "Visual Annotation System"
-    image: "/images/features/essential-feature-1.png"
+    image: "/images/annotation.png"
     description: "Highlights problems directly on label images with color-coded issue types and interactive issue exploration for pinpoint accuracy."
     bulletpoints_y:
       - icon: "/images/icons/png/log.png"
@@ -14,12 +14,12 @@ list:
         title: "Mismatch Detection"
         description: "Compares label vs technical documentation to identify component discrepancies and missing information."
     button:
-      enable: true
+      enable: false
       label: "Book a Demo"
       link: "/demo/"
 
   - title: "Detailed Compliance Reports"
-    image: "/images/features/essential-feature-2.png"
+    image: "/images/illo-1.png"
     description: "Professional reports ready for regulatory submissions with evidence-based analysis and citations."
     bulletpoints_x:
       - icon: "/images/icons/svg/code.svg"
@@ -32,7 +32,7 @@ list:
         title: "Secure Dashboard"
         description: "Personal compliance workspace with analysis history, job tracking, and enterprise-grade security."
     button:
-      enable: true
-      label: "View Pricing"
-      link: "/pricing/"
+      enable: false
+      label: "Book a Demo"
+      link: "/demo/"
 ---
