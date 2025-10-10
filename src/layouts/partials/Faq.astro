@@ -36,7 +36,8 @@ const { title, subtitle, description, list } = (
                     {item.title && (
                       <button
                         class="accordion-header"
-                        aria-label="toggle accordion content">
+                        aria-label="toggle accordion content"
+                      >
                         <span class="text-base" set:html={`${index + 1}.`} />
                         <span set:html={item.title} />
                       </button>
@@ -70,5 +71,5 @@ const { title, subtitle, description, list } = (
     });
   }
 
-  document.addEventListener("astro:page-load", faqInit);
+  document.addEventListener("DOMContentLoaded", faqInit);
 </script>
