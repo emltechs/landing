@@ -2,6 +2,7 @@
 import ImageMod from "@/components/ImageMod.astro";
 import DynamicIcon from "@/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
+import { AnimatedText } from "@/shortcodes/AnimatedText";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
@@ -11,6 +12,7 @@ const { title, description, buttons, images } = (
     "home-banner"
   )) as CollectionEntry<"homeBannerSection">
 ).data;
+const categories = ["Cosmetics", "Food", "Homecare"];
 ---
 
 {
@@ -23,20 +25,16 @@ const { title, description, buttons, images } = (
               class="text-tertiary font-semibold uppercase tracking-widest text-sm py-4"
               data-aos="fade-up-sm"
             >
-              Regulatory Compliance Made Easy
+              A first-of-its-kind AI compliance suite
             </div>
             {title && (
-              <h1
-                set:html={markdownify(title)}
-                data-aos="fade-up-sm"
-                class="mb-4 text-h3 lg:text-h1"
-              />
+              <AnimatedText title={title} texts={categories} client:load />
             )}
             {description && (
               <p
                 set:html={markdownify(description)}
                 data-aos="fade-up-sm"
-                class="mb-8 text-lg/[inherit]"
+                class="mb-8 text-xl/[inherit] text-balance font-medium text-slate-600 "
               />
             )}
             {buttons && (

@@ -1,7 +1,8 @@
 ---
 # Banner
-title: "Export with Confidence: From Product to Market in Minutes"
-description: "AI-Powered Compliance Platform for Export & Trade. Automated label compliance checking, ingredient analysis, and regulatory validation for cosmetics, food, and homecare products."
+title: "Compliance Automation Platform Built for EU Retail"
+categories: ["Cosmetics", "Food", "Homecare"]
+description: "Automatic scan of product labels and safety data in 23+ languages, checks against 3,000+ restricted/banned ingredients, verifies claims, and automatically generates full compliance documentation (SDS, CPSR for cosmetics)."
 bg_image: "/images/banner-bg.png"
 images:
   - src: "/images/banner-main.png" # Main Image

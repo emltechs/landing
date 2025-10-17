@@ -68,7 +68,7 @@ export const changelogSection = defineCollection({
         date: z.string(),
         version: z.string(),
         content: z.string(),
-      }),
+      })
     ),
   }),
 });
@@ -98,7 +98,7 @@ export const faqSection = defineCollection({
         title: z.string(),
         description: z.string(),
         active: z.boolean().optional(),
-      }),
+      })
     ),
   }),
 });
@@ -119,9 +119,9 @@ export const featuresExplanationSection = defineCollection({
           z.object({
             title: z.string(),
             description: z.string(),
-          }),
+          })
         ),
-      }),
+      })
     ),
   }),
 });
@@ -147,7 +147,7 @@ export const featuresGridSection = defineCollection({
             link: z.string(),
           })
           .optional(),
-      }),
+      })
     ),
   }),
 });
@@ -172,7 +172,7 @@ export const featuresSection = defineCollection({
               icon: z.string(),
               title: z.string(),
               description: z.string(),
-            }),
+            })
           )
           .optional(),
         bulletpoints_x: z
@@ -181,7 +181,7 @@ export const featuresSection = defineCollection({
               icon: z.string(),
               title: z.string().optional(),
               description: z.string(),
-            }),
+            })
           )
           .optional(),
         button: z
@@ -191,7 +191,7 @@ export const featuresSection = defineCollection({
             link: z.string(),
           })
           .optional(),
-      }),
+      })
     ),
   }),
 });
@@ -203,6 +203,7 @@ export const homeBannerSection = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
+    categories: z.array(z.string()),
     description: z.string(),
     bg_image: z.string(),
     images: z.array(
@@ -210,14 +211,14 @@ export const homeBannerSection = defineCollection({
         src: z.string(),
         alt: z.string(),
         height: z.string().optional(),
-      }),
+      })
     ),
     buttons: z.array(
       z.object({
         enable: z.boolean(),
         label: z.string(),
         link: z.string(),
-      }),
+      })
     ),
   }),
 });
@@ -236,7 +237,7 @@ export const howItWorksSection = defineCollection({
         icon: z.string(),
         title: z.string(),
         description: z.string(),
-      }),
+      })
     ),
   }),
 });
@@ -261,7 +262,7 @@ export const integrationSection = defineCollection({
           link: z.string(),
         }),
         list: z.array(z.string()),
-      }),
+      })
     ),
   }),
 });
@@ -280,7 +281,7 @@ export const ourTeamSection = defineCollection({
         name: z.string(),
         image: z.string(),
         company: z.string(),
-      }),
+      })
     ),
   }),
 });
@@ -299,13 +300,13 @@ export const ourValuesSection = defineCollection({
         icon: z.string(),
         title: z.string(),
         description: z.string(),
-      }),
+      })
     ),
     stats: z.array(
       z.object({
         label: z.string(),
         value: z.string(),
-      }),
+      })
     ),
   }),
 });
@@ -339,7 +340,7 @@ export const pricingSection = defineCollection({
           label: z.string(),
           link: z.string(),
         }),
-      }),
+      })
     ),
   }),
 });
@@ -359,7 +360,7 @@ export const testimonialSection = defineCollection({
         designation: z.string(),
         avatar: z.string(),
         content: z.string(),
-      }),
+      })
     ),
   }),
 });
