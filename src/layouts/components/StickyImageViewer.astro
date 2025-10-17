@@ -1,0 +1,243 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+
+interface ImageItem {
+  src: string;
+  alt: string;
+}
+
+type BulletpointItem =
+  CollectionEntry<"featuresSection">["data"]["list"][number]["bulletpoints"][number];
+
+interface Props {
+  index: number;
+  images: ImageItem[];
+  bulletpoints: BulletpointItem[];
+}
+
+const { index, images, bulletpoints } = Astro.props;
+
+// Enforce 1:1 mapping between images and bulletpoints
+if (images.length !== bulletpoints.length) {
+  throw new Error(
+    `StickyImageViewer: images (${images.length}) must match bulletpoints (${bulletpoints.length}).`
+  );
+}
+
+// Alternate column layout: even index = image left, odd index = image right
+const imageColOrderClass = index % 2 === 0 ? "md:order-1" : "md:order-2";
+const contentColOrderClass = index % 2 === 0 ? "md:order-2" : "md:order-1";
+---
+
+<div>
+  {/* Mobile: pairwise layout, no animation */}
+  <div class="md:hidden flex flex-col gap-12 mt-12">
+    {
+      images.map((image, i) => {
+        const point = bulletpoints[i];
+        return (
+          <div class="flex flex-col gap-2">
+            <div class="p-6 bg-slate-100 items-center flex justify-center rounded-lg">
+              <ImageMod src={image.src} alt={image.alt} />
+            </div>
+            <div class="flex flex-col gap-2 ring-1 ring-slate-100 p-6 rounded-lg">
+              {point.icon && (
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
+                  <ImageMod
+                    class="h-6 w-6 object-cover"
+                    src={point.icon}
+                    alt={`icon related to ${point.title}`}
+                  />
+                </div>
+              )}
+              {point.title && (
+                <h3
+                  class="h6 pt-3 text-2xl"
+                  set:html={markdownify(point.title)}
+                />
+              )}
+              {point.description && (
+                <p
+                  class="text-base"
+                  set:html={markdownify(point.description)}
+                />
+              )}
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  {/* Desktop: sticky image with cards; alternate columns */}
+  <div
+    data-section-index={index}
+    class="hidden md:grid grid-cols-2 items-start mt-20 gap-20 relative"
+  >
+    <div
+      style={`height: ${100 / images.length}%;`}
+      data-scroll-role="target"
+      class={`p-4 md:p-12 bg-slate-100 items-center flex justify-center sticky overflow-clip rounded-lg ${imageColOrderClass}`}
+    >
+      {
+        images.map((image, i) => (
+          <div
+            data-scroll-role="image"
+            data-image-index={i}
+            class="absolute inset-6 opacity-0 flex items-center justify-center"
+            data-section-index={index}
+            style="transition: opacity 0.2s ease-out;"
+          >
+            <ImageMod src={image.src} alt={image.alt} />
+          </div>
+        ))
+      }
+    </div>
+    <div
+      class={contentColOrderClass}
+      data-aos="fade-up-sm"
+      data-aos-delay={300}
+    >
+      <div
+        class="flex flex-col"
+        data-scroll-role="card-container"
+        data-section-index={index}
+      >
+        {
+          bulletpoints.map((point, i) => (
+            <div
+              data-scroll-role="card"
+              data-card-index={i}
+              data-section-index={index}
+              class="feature-item min-h-0 max-h-[50vh] h-[480px] flex flex-col justify-center items-start gap-2 lg:gap-2"
+              style={`view-timeline-name: --row-${index}-${i}; view-timeline-axis: block;`}
+            >
+              {point.icon && (
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
+                  <ImageMod
+                    class="h-6 w-6 object-cover"
+                    src={point.icon}
+                    alt={`icon related to ${point.title}`}
+                  />
+                </div>
+              )}
+              {point.title && (
+                <h3
+                  class="h6 pt-3 text-4xl"
+                  set:html={markdownify(point.title)}
+                />
+              )}
+              {point.description && (
+                <p
+                  class="md:text-xl text-base"
+                  set:html={markdownify(point.description)}
+                />
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Get all sticky sections on the page
+  const stickySections = document.querySelectorAll("[data-section-index]");
+
+  // Function to calculate and set the proper top position for sticky elements
+  function setStickyTopPosition() {
+    stickySections.forEach((section) => {
+      const stickyElement = section.querySelector(
+        '[data-scroll-role="target"]'
+      ) as HTMLElement;
+      if (stickyElement) {
+        const elementHeight = stickyElement.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const topPosition = (viewportHeight - elementHeight) / 2;
+        stickyElement.style.top = `${Math.max(0, topPosition)}px`;
+      }
+    });
+  }
+
+  // Function to find the closest card to the center of the viewport
+  function findClosestCardToCenter(sectionIndex: number): number {
+    const cards = document.querySelectorAll(
+      `[data-section-index="${sectionIndex}"][data-scroll-role="card"]`
+    );
+    const viewportCenter = window.innerHeight / 2;
+    let closestCardIndex = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(cardCenter - viewportCenter);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestCardIndex = index;
+      }
+    });
+
+    return closestCardIndex;
+  }
+
+  // Function to update image visibility based on closest card
+  function updateImageVisibility(sectionIndex: number, imageIndex: number) {
+    const images = document.querySelectorAll(
+      `[data-section-index="${sectionIndex}"][data-scroll-role="image"]`
+    );
+
+    images.forEach((img, index) => {
+      const imageElement = img as HTMLElement;
+      if (index === imageIndex) {
+        imageElement.style.opacity = "1";
+      } else {
+        imageElement.style.opacity = "0";
+      }
+    });
+  }
+
+  // Throttled scroll handler
+  let scrollTimeout: number | null = null;
+
+  function handleScroll() {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+
+    scrollTimeout = window.setTimeout(() => {
+      stickySections.forEach((section) => {
+        const sectionIndex = parseInt(
+          section.getAttribute("data-section-index") || "0"
+        );
+        const closestCardIndex = findClosestCardToCenter(sectionIndex);
+        updateImageVisibility(sectionIndex, closestCardIndex);
+      });
+    }, 16); // ~60fps
+  }
+
+  // Function to handle resize events
+  function handleResize() {
+    setStickyTopPosition();
+  }
+
+  // Initialize sticky positioning
+  setStickyTopPosition();
+
+  // Add event listeners
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleResize);
+
+  // Initial call to set correct images on page load
+  handleScroll();
+
+  // Cleanup on page unload
+  window.addEventListener("beforeunload", () => {
+    window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("resize", handleResize);
+  });
+</script>

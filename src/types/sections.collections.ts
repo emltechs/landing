@@ -158,39 +158,19 @@ export const featuresSection = defineCollection({
     base: "src/content/sections",
   }),
   schema: z.object({
-    subtitle: z.string(),
     title: z.string(),
     description: z.string(),
+    subtitle: z.string(),
     list: z.array(
       z.object({
-        title: z.string(),
-        image: z.string(),
-        description: z.string().optional(),
-        bulletpoints_y: z
-          .array(
-            z.object({
-              icon: z.string(),
-              title: z.string(),
-              description: z.string(),
-            })
-          )
-          .optional(),
-        bulletpoints_x: z
-          .array(
-            z.object({
-              icon: z.string(),
-              title: z.string().optional(),
-              description: z.string(),
-            })
-          )
-          .optional(),
-        button: z
-          .object({
-            enable: z.boolean(),
-            label: z.string(),
-            link: z.string(),
+        images: z.array(z.object({ src: z.string(), alt: z.string() })),
+        bulletpoints: z.array(
+          z.object({
+            icon: z.string(),
+            title: z.string(),
+            description: z.string(),
           })
-          .optional(),
+        ),
       })
     ),
   }),

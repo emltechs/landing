@@ -1,3 +1,14 @@
+@keyframes sticky-swap {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 /* Aos Animations */
 [data-aos="fade-up-sm"] {
   transform: translate3d(0, 20px, 0);
