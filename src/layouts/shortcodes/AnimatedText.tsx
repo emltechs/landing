@@ -38,8 +38,8 @@ export const AnimatedText = ({
               }}
             >
               {text}
-              {index !== text.length - 1 && (
-                <span className="inline opacity-0">,</span>
+              {index !== texts.length - 1 && (
+                <span className="inline opacity-0">,&nbsp;</span>
               )}
             </span>
           ))}

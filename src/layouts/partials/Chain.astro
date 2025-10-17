@@ -1,6 +1,7 @@
 ---
 import ImageMod from "@/components/ImageMod.astro";
 import { Image } from "astro:assets";
+import ScrollChain from "./ScrollChain";
 
 const chainImages = [
   {
@@ -65,80 +66,27 @@ const chainDescriptions = [
 ];
 ---
 
-<section class="section">
-  <div class="max-w-screen-2xl mx-auto w-full">
-    <div class="row">
-      <div class="flex flex-col items-center justify-center gap-16">
-        <div class="text-center max-w-3xl mx-auto">
-          <p
-            class="text-tertiary font-semibold uppercase tracking-widest text-sm mb-4"
-            data-aos="fade-up-sm"
-          >
-            INTEGRATED ECOSYSTEM
-          </p>
-          <h2
-            class="text-h4 md:text-h2 font-medium mb-4"
-            data-aos="fade-up-sm"
-            data-aos-delay="100"
-          >
-            Our 3+1 Integrated System connects the entire supply chain
-          </h2>
-        </div>
-        <div
-          class="flex rounded-3xl overflow-hidden justify-stretch md:h-96 gap-1 flex-col md:flex-row ring-2 ring-offset-2 ring-slate-100"
-        >
-          {
-            chainImages.map((item) => (
-              <div
-                class="flex-1 relative group overflow-hidden cursor-pointer"
-                data-aos={item.animation}
-                data-aos-delay={item.delay}
-              >
-                <Image
-                  format="webp"
-                  class="flex-1 h-72 md:h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  width={1200}
-                  height={1440}
-                  src={item.src}
-                  alt={item.alt}
-                />
-                <div
-                  aria-hidden="true"
-                  class="absolute bottom-0 left-0 right-0 h-1/2 uppercase tracking-wide from-transparent to-slate-900/100 bg-gradient-to-b flex items-end justify-center p-6 transition-opacity duration-300 group-hover:opacity-100 opacity-0"
-                >
-                  <span class="text-white text-2xl text-center font-semibold transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-100 blur-sm group-hover:blur-0 scale-90 group-hover:scale-100">
-                    {item.title}
-                  </span>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-        <div
-          class="grid md:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 max-w-screen-lg mx-auto w-full"
-        >
-          {
-            chainDescriptions.map((item) => (
-              <div
-                class="flex flex-col items-start"
-                data-aos="fade-up-sm"
-                data-aos-delay={item.delay}
-              >
-                <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
-                  <ImageMod
-                    class="h-6 w-6 object-cover"
-                    src={item.icon}
-                    alt={item.iconAlt}
-                  />
-                </div>
-
-                <h3 class="h6 mb-2 pt-3">{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
+<section class="py-16 md:py-24">
+  <div class="flex flex-col items-center justify-center">
+    <div class="text-center max-w-3xl mx-auto px-4">
+      <p
+        class="text-tertiary font-semibold uppercase tracking-widest text-sm mb-4"
+        data-aos="fade-up-sm"
+      >
+        INTEGRATED ECOSYSTEM
+      </p>
+      <h2
+        class="text-h4 md:text-h2 font-medium mb-4"
+        data-aos="fade-up-sm"
+        data-aos-delay="100"
+      >
+        Our 3+1 Integrated System connects the entire supply chain
+      </h2>
     </div>
+    <ScrollChain
+      client:load
+      images={chainImages}
+      descriptions={chainDescriptions}
+    />
   </div>
 </section>
