@@ -29,6 +29,7 @@ if (images.length !== bulletpoints.length) {
 // Alternate column layout: even index = image left, odd index = image right
 const imageColOrderClass = index % 2 === 0 ? "md:order-1" : "md:order-2";
 const contentColOrderClass = index % 2 === 0 ? "md:order-2" : "md:order-1";
+const transformOrigin = index % 2 === 0 ? "left center" : "right center";
 ---
 
 <div>
@@ -112,7 +113,7 @@ const contentColOrderClass = index % 2 === 0 ? "md:order-2" : "md:order-1";
               data-card-index={i}
               data-section-index={index}
               class="feature-item min-h-0 max-h-[50vh] h-[480px] flex flex-col justify-center items-start gap-2 lg:gap-2"
-              style={`view-timeline-name: --row-${index}-${i}; view-timeline-axis: block;`}
+              style={`view-timeline-name: --row-${index}-${i}; view-timeline-axis: block; transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1), transform 0.9s cubic-bezier(0.19, 1, 0.22, 1); transform-origin: ${transformOrigin};`}
             >
               {point.icon && (
                 <div class="flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
@@ -185,18 +186,36 @@ const contentColOrderClass = index % 2 === 0 ? "md:order-2" : "md:order-1";
     return closestCardIndex;
   }
 
-  // Function to update image visibility based on closest card
+  // Function to update image visibility and card focus based on closest card
   function updateImageVisibility(sectionIndex: number, imageIndex: number) {
     const images = document.querySelectorAll(
       `[data-section-index="${sectionIndex}"][data-scroll-role="image"]`
     );
+    const cards = document.querySelectorAll(
+      `[data-section-index="${sectionIndex}"][data-scroll-role="card"]`
+    );
 
+    // Update image visibility
     images.forEach((img, index) => {
       const imageElement = img as HTMLElement;
       if (index === imageIndex) {
         imageElement.style.opacity = "1";
       } else {
         imageElement.style.opacity = "0";
+      }
+    });
+
+    // Update card focus (opacity and scale)
+    cards.forEach((card, index) => {
+      const cardElement = card as HTMLElement;
+      if (index === imageIndex) {
+        // Card in focus - full opacity and scale
+        cardElement.style.opacity = "1";
+        cardElement.style.transform = "scale(1)";
+      } else {
+        // Card not in focus - reduced opacity and scale
+        cardElement.style.opacity = "0.1";
+        cardElement.style.transform = "scale(0.96)";
       }
     });
   }
